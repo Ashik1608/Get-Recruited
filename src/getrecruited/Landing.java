@@ -8,11 +8,18 @@ package getrecruited;
  *
  * @author Kabilan
  */
+
+import javax.swing.JOptionPane;
+import java.sql.*;
+
 public class Landing extends javax.swing.JFrame {
 
     /**
      * Creates new form Landing
      */
+    public static Connection con;
+    public static Statement st;
+    
     public Landing() {
         initComponents();
     }
@@ -41,6 +48,11 @@ public class Landing extends javax.swing.JFrame {
         jLabel1.setText("getRecruited()");
 
         jButton1.setText("Register");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel2.setText("\"If opportunity doesn’t knock,");
@@ -49,6 +61,11 @@ public class Landing extends javax.swing.JFrame {
         jLabel3.setText("build a door.”");
 
         jButton2.setText("View Job Listings");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,10 +105,31 @@ public class Landing extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new Role().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3307/mysql";
+            con = DriverManager.getConnection(url, "root", "licet@123");
+            st = con.createStatement();
+            JOptionPane.showMessageDialog(null, "Connected");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Not connected");
+        }
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
